@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -222,12 +223,18 @@ public class MyActivity extends Activity
 
             rootView = inflater.inflate(R.layout.fragment_webview, container, false);
             //ListView lv = (ListView)rootView.findViewById(R.id.listView);
-            WebView webview = (WebView) rootView.findViewById(R.id.webView);
-            webview.setWebViewClient(new myWebClient());
-            WebSettings webSettings = webview.getSettings();
+            CustomWebView customwebview = (CustomWebView) rootView.findViewById(R.id.webView);
+            customwebview.setWebViewClient(new myWebClient());
+            customwebview.setOnScrollChangedCallback(new CustomWebView.OnScrollChangedCallback(){
+                public void onScroll(int l, int t){
+
+                }
+            });
+
+            WebSettings webSettings = customwebview.getSettings();
             webSettings.setJavaScriptEnabled(true);
-            webview.setWebViewClient(new myWebClient());
-            webview.loadUrl("http://www.expressen.se");
+            customwebview.setWebViewClient(new myWebClient());
+            customwebview.loadUrl("http://www.expressen.se");
 
 
 
@@ -261,5 +268,7 @@ public class MyActivity extends Activity
 
         }
     }
+
+
 
 }
